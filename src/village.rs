@@ -2,7 +2,7 @@ use serde::Deserialize;
 use rutie::{ RString, AnyObject, Object, Class, VerifiedObject };
 use rutie::types::{ Value, ValueType };
 
-#[derive(Deserialize, Clone)]
+#[derive(Debug, Deserialize, Clone)]
 pub struct Village {
     #[serde(rename = "Ortschaftsname")]
     name: Box<str>,
@@ -27,5 +27,33 @@ pub struct Village {
 impl Village {
     pub fn name(&self) -> &str {
         &self.name
+    }
+
+    pub fn language(&self) -> &str {
+        &self.language
+    }
+
+    pub fn bfs_number(&self) -> &str {
+        &self.bfs_number
+    }
+
+    pub fn latitude(&self) -> &str {
+        &self.latitude
+    }
+
+    pub fn longitude(&self) -> &str {
+        &self.longitude
+    }
+
+    pub fn commune(&self) -> &str {
+        &self.commune
+    }
+
+    pub fn canton(&self) -> &str {
+        &self.canton
+    }
+
+    pub fn zip_code(&self) -> i16 {
+        self.zip_code
     }
 }

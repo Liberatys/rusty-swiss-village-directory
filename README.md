@@ -28,15 +28,11 @@ The average and total runtime are taken with [stop_watch](https://github.com/dan
 
 Language | Average(in s)| Total(in s) | Input size
 ------ | ------|----------|----
-Rust | 0.002546021 | 2.546021 | 4000 |
-Ruby | 0.0023     |  2.34 | 4000 |
-Rust | 0.0153 | 11.5 | 14600 |
+Rust | 0.00041 | 0.41 | 14600 |
 Ruby | 0.0082  |  8.2018 | 14600 |
 
-### Slow Rust 
-
-At the moment the rust version is a lot slower than the ruby version... I do not know what to blame for the
-added runtime.
+At the moment the rust implement does not have the same feature set. But I think even by implementing the rest of the 
+features we will still have a 2x speed up.
 
 ## License
 

@@ -55,8 +55,36 @@ methods!(
     RString::new_utf8(&itself.get_data(&*VILLAGE_WRAPPER).name())
   }
 
+  fn village_zip_code() -> RString {
+    RString::new_utf8(&itself.get_data(&*VILLAGE_WRAPPER).zip_code().to_string())
+  }
+
+  fn village_language() -> RString {
+    RString::new_utf8(&itself.get_data(&*VILLAGE_WRAPPER).language())
+  }
+
+  fn village_commune() -> RString {
+    RString::new_utf8(&itself.get_data(&*VILLAGE_WRAPPER).commune())
+  }
+
+  fn village_canton() -> RString {
+    RString::new_utf8(&itself.get_data(&*VILLAGE_WRAPPER).canton())
+  }
+
+  fn village_longitude() -> RString {
+    RString::new_utf8(&itself.get_data(&*VILLAGE_WRAPPER).longitude())
+  }
+
+  fn village_latitude() -> RString {
+    RString::new_utf8(&itself.get_data(&*VILLAGE_WRAPPER).latitude())
+  }
+
+  fn village_bfs_number() -> RString {
+    RString::new_utf8(&itself.get_data(&*VILLAGE_WRAPPER).bfs_number())
+  }
+
   fn village_inspect() -> RString {
-    RString::new_utf8(&format!("{}", itself.get_data(&*VILLAGE_WRAPPER).name()))
+    RString::new_utf8(&format!("Village: {:?}", itself.get_data(&*VILLAGE_WRAPPER).name()))
   }
 );
 
@@ -93,5 +121,12 @@ pub extern "C" fn Init_rusty_swiss_village_directory() {
 
   Class::new("Village", None).define(|itself| {
     itself.def("name", village_name);
+    itself.def("zip_code", village_zip_code);
+    itself.def("language", village_language);
+    itself.def("latitude", village_latitude);
+    itself.def("longitude", village_longitude);
+    itself.def("canton", village_canton);
+    itself.def("commune", village_commune);
+    itself.def("bfs_number", village_bfs_number);
   });
 }

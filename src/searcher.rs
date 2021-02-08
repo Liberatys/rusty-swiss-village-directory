@@ -13,9 +13,11 @@ impl Searcher {
     }
 
     pub fn by_name(&self, name: String) -> Vec<Village> {
-        self.villages.clone().into_iter().filter(
-            | village | village.name() == name
-        ).collect::<Vec<Village>>()
+        let result: Vec<Village> = self.villages.
+            iter().filter_map(| v | 
+                if v.name() == name { Some(v.clone()) } 
+                else { None }).collect();
+        result
     }
 
     pub fn element_count(&self) -> usize {
