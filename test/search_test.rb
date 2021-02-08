@@ -3,10 +3,14 @@ require 'stop_watch'
 
 class SearcherTest < Minitest::Test
   def test_it_rust
-    p "RUST"
     watch = StopWatch::Timer.new
     watch.mark
-    assert_equal SwissVillageDirectory.by_name("Aeugst am Albis").name, "Aeugst am Albis"
-    p watch.mark
+    1000.times do | x |
+      assert_equal SwissVillageDirectory.by_name("Aeugst am Albis").name, "Aeugst am Albis"
+      watch.mark
+    end
+    watch.mark
+    p watch.ha
+    p watch.h
   end
 end

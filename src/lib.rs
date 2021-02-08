@@ -1,7 +1,9 @@
 #[macro_use]
 extern crate rutie;
-
 extern crate csv;
+
+extern crate time;
+use time::PreciseTime;
 
 #[macro_use]
 extern crate lazy_static;
@@ -10,12 +12,11 @@ class!(SwissVillageDirectory);
 class!(Village);
 
 wrappable_struct!(village::Village, VillageWrapper, VILLAGE_WRAPPER);
+use rutie::{Object, Class, RString, AnyObject, VM};
 
 mod village;
-mod loader;
-mod searcher;
-
-use rutie::{Object, Class, RString, AnyObject, VM};
+pub mod loader;
+pub mod searcher;
 
 lazy_static! {
     static ref SEARCHER: searcher::Searcher = {
@@ -39,9 +40,10 @@ methods!(
 
   fn pub_find_by_name(name: RString) -> AnyObject {
     let name_str = name.
-          map_err(|e| VM::raise_ex(e) ).
+          map_err(|e| VM::raise_ex(e)).
           unwrap().to_string();
-    Class::from_existing("Village").wrap_data(SEARCHER.by_name(name_str)[0].clone(), &*VILLAGE_WRAPPER)
+    let searched = SEARCHER.by_name(name_str);
+    Class::from_existing("Village").wrap_data(searched[0].clone(), &*VILLAGE_WRAPPER)
   }
 );
 
@@ -50,11 +52,11 @@ methods!(
   itself,
 
   fn village_name() -> RString {
-    RString::new(&itself.get_data(&*VILLAGE_WRAPPER).name())
+    RString::new_utf8(&itself.get_data(&*VILLAGE_WRAPPER).name())
   }
 
   fn village_inspect() -> RString {
-    RString::new(&format!("{}", itself.get_data(&*VILLAGE_WRAPPER).name()))
+    RString::new_utf8(&format!("{}", itself.get_data(&*VILLAGE_WRAPPER).name()))
   }
 );
 
@@ -70,8 +72,15 @@ mod tests {
     #[test]
     fn find_by_name() {
         let result = SEARCHER.by_name("Aeugstertal".to_string());
-        assert_eq!(result.len(), 1);
         assert_eq!(result[0].name(), "Aeugstertal");
+    }
+
+    // #[test]
+    fn load_test() {
+        for x in 0..1000 {
+            let result = SEARCHER.by_name("Aeugstertal".to_string());
+            assert_eq!(result[0].name(), "Aeugstertal");
+        }
     }
 }
 

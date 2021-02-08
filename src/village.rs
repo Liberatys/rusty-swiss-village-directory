@@ -2,26 +2,26 @@ use serde::Deserialize;
 use rutie::{ RString, AnyObject, Object, Class, VerifiedObject };
 use rutie::types::{ Value, ValueType };
 
-#[derive(Debug, Deserialize, Clone)]
+#[derive(Deserialize, Clone)]
 pub struct Village {
     #[serde(rename = "Ortschaftsname")]
-    name: String,
+    name: Box<str>,
     #[serde(rename = "PLZ")]
     zip_code: i16,
     #[serde(rename = "Zusatzziffer")]
     one_digit_spare: i8,
     #[serde(rename = "Gemeindename")]
-    commune: String,
+    commune: Box<str>,
     #[serde(rename = "BFS-Nr")]
-    bfs_number: String,
+    bfs_number: Box<str>,
     #[serde(rename = "Kantonskürzel")]
-    canton: String,
+    canton: Box<str>,
     #[serde(rename = "E")]
-    longitude: String,
+    longitude: Box<str>,
     #[serde(rename = "N")]
-    latitude: String,
+    latitude: Box<str>,
     #[serde(rename = "Sprache")]
-    language: String,
+    language: Box<str>,
 }
 
 impl Village {
