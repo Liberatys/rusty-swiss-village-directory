@@ -16,7 +16,7 @@ impl Loader {
         }
     }
 
-    pub fn load(&self) -> Result<Vec<Village>, Box<Error>>{
+    pub fn load(&self) -> Result<Vec<Village>, Box<dyn Error>>{
         let path = PathBuf::from(&self.file_path);
         let mut rdr = csv::ReaderBuilder::new()
             .delimiter(b';')

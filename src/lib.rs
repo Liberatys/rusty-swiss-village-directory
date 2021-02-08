@@ -6,13 +6,16 @@ extern crate csv;
 #[macro_use]
 extern crate lazy_static;
 
-module!(RustSwissVillageDirectory);
+class!(SwissVillageDirectory);
+class!(Village);
+
+wrappable_struct!(village::Village, VillageWrapper, VILLAGE_WRAPPER);
 
 mod village;
 mod loader;
 mod searcher;
 
-use rutie::{Module, RString, Boolean, AnyObject, VM};
+use rutie::{Object, Class, RString, AnyObject, VM};
 
 lazy_static! {
     static ref SEARCHER: searcher::Searcher = {
@@ -31,8 +34,28 @@ lazy_static! {
 }
 
 methods!(
-  RustSwissVillageDirectory,
+  SwissVillageDirectory,
   _itself,
+
+  fn pub_find_by_name(name: RString) -> AnyObject {
+    let name_str = name.
+          map_err(|e| VM::raise_ex(e) ).
+          unwrap().to_string();
+    Class::from_existing("Village").wrap_data(SEARCHER.by_name(name_str)[0].clone(), &*VILLAGE_WRAPPER)
+  }
+);
+
+methods!(
+  Village,
+  itself,
+
+  fn village_name() -> RString {
+    RString::new(&itself.get_data(&*VILLAGE_WRAPPER).name())
+  }
+
+  fn village_inspect() -> RString {
+    RString::new(&format!("{}", itself.get_data(&*VILLAGE_WRAPPER).name()))
+  }
 );
 
 #[cfg(test)]
@@ -48,10 +71,18 @@ mod tests {
     fn find_by_name() {
         let result = SEARCHER.by_name("Aeugstertal".to_string());
         assert_eq!(result.len(), 1);
-        assert_eq!(result[0].name, "Aeugstertal");
-        assert_eq!(result[0].zip_code, 8914);
-        assert_eq!(result[0].one_digit_spare, 2);
-        assert_eq!(result[0].longitude, "8.494");
-        assert_eq!(result[0].latitude, "47.283");
+        assert_eq!(result[0].name(), "Aeugstertal");
     }
+}
+
+#[allow(non_snake_case)]
+#[no_mangle]
+pub extern "C" fn Init_rusty_swiss_village_directory() {
+  Class::new("SwissVillageDirectory", None).define(|itself| {
+    itself.def_self("by_name", pub_find_by_name);
+  });
+
+  Class::new("Village", None).define(|itself| {
+    itself.def("name", village_name);
+  });
 }

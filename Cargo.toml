@@ -8,11 +8,11 @@ edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [lib]
-name = 'swiss_village_directory'
+name = 'rusty_swiss_village_directory'
 crate-type = ["dylib"]
 
 [dependencies]
-rutie = "0.6.0"
+rutie = "0.7.0"
 csv = "1.1"
 rayon = "1.5"
 lazy_static = "1.3"
