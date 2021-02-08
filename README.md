@@ -31,7 +31,7 @@ Language | Average(in s)| Total(in s) | Input size
 Rust | 0.002546021 | 2.546021 | 4000 |
 Ruby | 0.0023     |  2.34 | 4000 |
 Rust | 0.0153 | 11.5 | 14600 |
-Ruby | 0.0082  |  8.2018 | 4000 | 14600 |
+Ruby | 0.0082  |  8.2018 | 14600 |
 
 ### Slow Rust 
 
