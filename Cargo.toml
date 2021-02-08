@@ -1,0 +1,20 @@
+[package]
+name = "rusty-swiss-village-directory"
+version = "0.1.0"
+homepage = "https://github.com/Liberatys/rusty-swiss-village-directory"
+repository = "https://github.com/Liberatys/rusty-swiss-village-directory"
+authors = ["Nick Flueckiger <nick.flueckiger@renuo.ch>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+name = 'swiss_village_directory'
+crate-type = ["dylib"]
+
+[dependencies]
+rutie = "0.6.0"
+csv = "1.1"
+rayon = "1.5"
+lazy_static = "1.3"
+memchr = "2.2"
+serde = { version = "1", features = ["derive"] }
