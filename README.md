@@ -18,7 +18,7 @@ The csv is loaded into memory and then operations can be performed on the loaded
 
 ## Benchmark
 
-For now the test case is to perform 1000 looks by name. This will most often only return one value... but that
+For now the test case is to perform 1000 searches by name. This will most often only return one value... but that
 should not be a problem.
 
 Tests are performed using rake test tasks.
