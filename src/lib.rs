@@ -10,6 +10,7 @@ extern crate lazy_static;
 
 class!(SwissVillageDirectory);
 class!(Village);
+class!(Repository);
 
 wrappable_struct!(village::Village, VillageWrapper, VILLAGE_WRAPPER);
 use rutie::{Object, Class, RString, AnyObject, VM};
@@ -45,6 +46,17 @@ methods!(
     let searched = SEARCHER.by_name(name_str);
     Class::from_existing("Village").wrap_data(searched[0].clone(), &*VILLAGE_WRAPPER)
   }
+);
+
+
+methods!(
+  Repository,
+  _itself,
+
+  fn pub_directory_villages() -> RString {
+    RString::from("WOW")
+  }
+
 );
 
 methods!(
@@ -117,6 +129,9 @@ mod tests {
 pub extern "C" fn Init_rusty_swiss_village_directory() {
   Class::new("SwissVillageDirectory", None).define(|itself| {
     itself.def_self("by_name", pub_find_by_name);
+    itself.define_nested_class("Repository", None).define(|itself| {
+        itself.def_self("villages", pub_directory_villages);
+    });
   });
 
   Class::new("Village", None).define(|itself| {
