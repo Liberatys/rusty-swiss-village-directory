@@ -32,7 +32,7 @@ Rust | 0.00041 | 0.41 | 14600 |
 Ruby | 0.0082  |  8.2018 | 14600 |
 
 At the moment the rust implement does not have the same feature set. But I think even by implementing the rest of the 
-features we will still have a 2x speed up.
+features we will still have a big speed up.
 
 ## License
 
