@@ -11,6 +11,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
+    memory_profiler (1.0.0)
     minitar (0.9)
     minitest (5.14.3)
     parallel (1.20.1)
@@ -46,6 +47,7 @@ PLATFORMS
   x86_64-darwin-19
 
 DEPENDENCIES
+  memory_profiler
   minitest
   rake (~> 13.0)
   rubocop (~> 1.7)
