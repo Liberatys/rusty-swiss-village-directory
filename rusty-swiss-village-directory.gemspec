@@ -35,7 +35,10 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rutie", "~> 0.0.3"
   spec.add_dependency "thermite", "~> 0.13.0"
   spec.add_development_dependency "minitest"
+  spec.add_development_dependency "minitest-reporters"
+  spec.add_development_dependency "color_pound_spec_reporter"
   spec.add_development_dependency "rubocop", "0.53"
   spec.add_development_dependency "stop_watch", "~> 1.0"
+
   spec.add_development_dependency "memory_profiler"
 end
